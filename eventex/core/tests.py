@@ -17,10 +17,8 @@ class HomeTest(TestCase):
         '''
         self.assertTemplateUsed(self.response,'index.html')
 
-    def test_has_form(self):
-        pass
-    
-    def test_form_has_erros(self):
-        pass
+    def test_subscription_link(self):
+        self.assertContains(self.response,'href="/inscricao/"')
+
 
 
