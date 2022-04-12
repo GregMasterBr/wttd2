@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from eventex.subscriptions.forms import SubscriptionForm
 from django.core import mail
 from django.template.loader import render_to_string
@@ -7,25 +7,31 @@ from django.contrib import messages
 
 def subscribe(request):
    if request.method == 'POST':
-      form = SubscriptionForm(request.POST)
-      #form.full_clean()
-      if form.is_valid():
-      # context = dict(name='Gregorio Queiroz', cpf='12345678901',
-      #                  email='gregmasterbr@gmail.com', phone='15-98105-7742')
-
-         body = render_to_string('subscriptions/subscription_email.txt',form.cleaned_data)
-
-         mail.send_mail(
-            'Confirmação de inscrição',
-            body,
-            'gregmasterbr+wttd@gmail.com',
-            ['gregmasterbr+wttd@gmail.com',form.cleaned_data['email']]
-         )
-         messages.success(request,'Inscrição realizada com sucesso!')
-         
-         return HttpResponseRedirect('/inscricao/')
-      else:
-         return render(request,'subscriptions/subscription_form.html',{'form':form})
+      return create(request)
    else:
-      context = {'form':SubscriptionForm()}
-      return render(request,'subscriptions/subscription_form.html',context) 
+      return new(request)
+
+def create(request):
+   form = SubscriptionForm(request.POST)
+
+   if not form.is_valid():
+      return render(request,'subscriptions/subscription_form.html',{'form':form})
+
+   #Send email
+   _send_email('Confirmação de inscrição',
+               'gregmasterbr+wttd@gmail.com',
+               form.cleaned_data['email'],
+               'subscriptions/subscription_email.txt',
+               form.cleaned_data)  
+   
+   # Success feddback
+   messages.success(request,'Inscrição realizada com sucesso!')
+         
+   return HttpResponseRedirect('/inscricao/')
+   
+def new(request):
+   return render(request,'subscriptions/subscription_form.html', {'form':SubscriptionForm()}) 
+
+def _send_email(subject, from_,to_,template_name,context):
+   body = render_to_string(template_name,context)
+   mail.send_mail(subject,body,from_,[from_, to_])
