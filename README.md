@@ -14,7 +14,7 @@ git clone https://github.com/GregMasterBr/wttd2.git wtdd
 cd wttd
 python -m venv .wtdd
 .wttd/Scripts/Activate.ps1
-pip install -requirements.txt
+pip install -r requirements.txt ou pip install -r requirements-dev.txt
 cp contrib/env-sample .env
 python manage.py test
 ```

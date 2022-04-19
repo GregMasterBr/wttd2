@@ -1,2 +1,7 @@
-staticfiles/
 .env
+.idea
+.wttd
+*pyc
+.ipynb_checkpoints/
+staticfiles/
+__pycache__
