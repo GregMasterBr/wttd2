@@ -1,3 +1,4 @@
+import unittest
 from urllib import response
 from django.test import TestCase
 from eventex.subscriptions.forms import SubscriptionForm
@@ -61,8 +62,12 @@ class SubscribePostValid(TestCase):
     def test_post(self):
         '''
             Valid POST should redirect to /inscricao/
+            Valid POST should redirect to /inscricao/1/
+
         '''
-        self.assertEqual(302, self.resp.status_code)
+        
+        #self.assertEqual(302, self.resp.status_code)
+        self.assertRedirects(self.resp, '/inscricao/1/')
 
     def test_send_subscribe_email(self):
         ''' Valida se existe o e-mail   '''
@@ -78,6 +83,7 @@ class SubscribePostInvalid(TestCase):
     def test_post(self):
         """Invalid POST should not redirect"""
         self.assertEqual(200, self.resp.status_code)
+        #self.assertRedirects(self.resp,'inscricao/1')
 
     def test_template(self):
         self.assertTemplateUsed(
@@ -94,9 +100,10 @@ class SubscribePostInvalid(TestCase):
     def test_dont_save_subscription(self):
         self.assertFalse(Subscription.objects.exists())
 
-class SubscribeSucessMessage(TestCase):
-    def test_message(self):
-        data = dict(name='Gregorio Queiroz', cpf='12345678901',
-                    email='gregmasterbr@gmail.com', phone='15-98105-7742')
-        response = self.client.post('/inscricao/', data, follow=True)
-        self.assertContains(response, 'Inscrição realizada com sucesso!')
+# @unittest.skip('To be removed.')
+# class SubscribeSucessMessage(TestCase):
+#     def test_message(self):
+#         data = dict(name='Gregorio Queiroz', cpf='12345678901',
+#                     email='gregmasterbr@gmail.com', phone='15-98105-7742')
+#         response = self.client.post('/inscricao/', data, follow=True)
+#         self.assertContains(response, 'Inscrição realizada com sucesso!')

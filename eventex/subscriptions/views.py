@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect
 from eventex.subscriptions.forms import SubscriptionForm
 from django.core import mail
 from django.template.loader import render_to_string
@@ -20,22 +20,38 @@ def create(request):
    if not form.is_valid():
       return render(request,'subscriptions/subscription_form.html',{'form':form})
 
-   #Send email
+   subscription = Subscription.objects.create(**form.cleaned_data)
+
+   #Send subscription email
+
    _send_email('Confirmação de inscrição',
                settings.DEFAULT_FROM_EMAIL,
-               form.cleaned_data['email'],
+               subscription.email,
                'subscriptions/subscription_email.txt',
-               form.cleaned_data)  
+               {'subscription': subscription})  
    #Save in DB
-   Subscription.objects.create(**form.cleaned_data)
 
-   # Success feddback
-   messages.success(request,'Inscrição realizada com sucesso!')
+   # Success feddback - Não precisa mais devido a tela de agradecimento.
+   #messages.success(request,'Inscrição realizada com sucesso!')
          
-   return HttpResponseRedirect('/inscricao/')
+   return HttpResponseRedirect('/inscricao/{}/'.format(subscription.pk))
    
 def new(request):
    return render(request,'subscriptions/subscription_form.html', {'form':SubscriptionForm()}) 
+
+
+def detail(request,pk):
+   try:
+      subscription = Subscription.objects.get(pk=pk)
+   except Subscription.DoesNotExist:
+      raise Http404
+   # subscription = Subscription(
+   #    name='Gregorio Queiroz',
+   #    cpf='12345678901',
+   #    email='gregmasterbr@gmail.com',
+   #    phone='15-981057742'
+   # )
+   return render(request, 'subscriptions/subscription_detail.html', {'subscription': subscription})
 
 def _send_email(subject, from_,to_,template_name,context):
    body = render_to_string(template_name,context)
