@@ -1,3 +1,4 @@
+
 """eventex URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -13,15 +14,16 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include
-from  eventex.core.views import home
-#import eventex.subscriptions.views
-#from eventex.subscriptions.views import subscribe, detail
+from django.urls import path
+from eventex.subscriptions.views import new, detail
+
+app_name='subscriptions'
 
 urlpatterns = [
-    path('', home, name='home'),
-    path('inscricao/',include('eventex.subscriptions.urls')),
-    path('admin/', admin.site.urls),
-    
+    path('',new, name='new'),
+    path('<int:pk>/',detail, name='detail'),    
 ]
+
+
+
+    

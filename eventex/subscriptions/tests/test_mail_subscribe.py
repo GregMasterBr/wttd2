@@ -3,12 +3,12 @@ from django.shortcuts import redirect, resolve_url as r
 from django.core import mail
 
 
-class SubscribePostValid(TestCase):
+class SubscribeEmail(TestCase):
     def setUp(self):
-        self.response = self.client.get('/inscricao/')
+        #self.response = self.client.get(r('subscriptions:new'))
         data = dict(name='Gregorio Queiroz', cpf='12345678901',
                     email='gregmasterbr@gmail.com', phone='15-98105-7742')
-        self.client.post('/inscricao/', data)
+        self.client.post(r('subscriptions:new'), data)
         self.email = mail.outbox[0]
 
     def test_subscription_email_subject(self):
@@ -38,7 +38,7 @@ class SubscribePostValid(TestCase):
                self.assertIn(content, self.email.body)
 
 '''
-class SubscribePostInvalid(TestCase):
+class SubscribeEmailInvalid(TestCase):
     def setUp(self):
         self.resp = self.client.get('/inscricao/', {})
 
