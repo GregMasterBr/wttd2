@@ -1,4 +1,3 @@
-from attr import fields
 from django.core.exceptions import ValidationError
 from django import forms
 from eventex.subscriptions.models import Subscription
@@ -37,7 +36,7 @@ class SubscriptionForm(forms.ModelForm):
 
     def clean(self):
         self.cleaned_data = super().clean()
-        
+
         if not self.cleaned_data.get('email') and not self.cleaned_data.get('phone'):
             raise ValidationError('Informe seu e-mail ou telefone.')
 
