@@ -25,7 +25,8 @@ def create(request):
    if not form.is_valid():
       return render(request,'subscriptions/subscription_form.html',{'form':form})
 
-   subscription = Subscription.objects.create(**form.cleaned_data)
+   #subscription = Subscription.objects.create(**form.cleaned_data)
+   subscription = form.save()
 
    #Send subscription email
 
@@ -40,6 +41,7 @@ def create(request):
    #messages.success(request,'Inscrição realizada com sucesso!')
          
    return HttpResponseRedirect(r('subscriptions:detail',subscription.pk))
+
 
 def detail(request,pk):
    try:
