@@ -366,6 +366,17 @@ section header h2 {
     background-color:#dff0d8 ;
     border-color: #d0e9c6;
 }
-
+/*Clearing static file 
+python manage.py collectstatic --noinput --clear. 
+This will clear the statics beforehand.
+*/
+.speakers{}
+.speakers h2{
+    text-transform: uppercase;
+}
+.speakers img{
+    width: 200px;
+    border-radius: 100%;
+}
 /* Fim Customização */
 
