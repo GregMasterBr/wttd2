@@ -1,5 +1,5 @@
 from django.db import models
-from eventex.core.managers import KindContactManager, KindQuerySet #,EmailContactManager, PhoneContactManager
+from eventex.core.managers import KindContactManager, KindQuerySet, PeriodManager #,EmailContactManager, PhoneContactManager
 from eventex.subscriptions.validators import validate_cpf
 from django.shortcuts import resolve_url as r
 
@@ -60,6 +60,8 @@ class Talk(models.Model):
     start = models.TimeField('início', blank=True, null=True)
     description = models.TextField('descrição', blank=True)
     speakers = models.ManyToManyField("Speaker", verbose_name='palestrantes', blank=True)
+    
+    objects = PeriodManager()
 
     class Meta:
         verbose_name_plural = 'palestras'

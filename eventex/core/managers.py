@@ -31,3 +31,11 @@ class KindContactManager(models.Manager):
     def phones(self):
         #return self.filter(kind = self.model.PHONE)
         return self.get_queryset().phones()
+
+
+class PeriodManager(models.Manager):
+    def at_morning(self):
+        return self.filter(start__lt='12:00')
+
+    def at_afternoon(self):
+        return self.filter(start__gte='12:00')        
