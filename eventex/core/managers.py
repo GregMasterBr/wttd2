@@ -12,9 +12,21 @@ from django.db import models
 #         qs = qs.filter(kind = self.model.PHONE)
 #         return qs
 
-class KindContactManager(models.Manager):
+class KindQuerySet(models.QuerySet):
     def emails(self):
         return self.filter(kind = self.model.EMAIL)
     
     def phones(self):
         return self.filter(kind = self.model.PHONE)
+
+class KindContactManager(models.Manager):
+    def get_queryset(self):
+        return KindQuerySet(self.model, using=self._db)
+
+    def emails(self):
+        #return self.filter(kind = self.model.EMAIL)
+        return self.get_queryset().emails()
+        
+    def phones(self):
+        #return self.filter(kind = self.model.PHONE)
+        return self.get_queryset().phones()
