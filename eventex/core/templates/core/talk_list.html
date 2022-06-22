@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section>
+    <div class="talks content row padding-bottom-3 desktop-12 container">
+        <h1>Palestras</h1>
+        <h2>Manhã</h2>
+        {% for talk in morning_talks %}
+            {% include 'core/talk_list_snippet.html' with talk=talk only %}
+        {% empty %}
+            <p>Ainda não existem palestras de manhã.</p>        
+        {% endfor %}
+        <h2>Tarde</h2>
+        {% for talk in afternoon_talks %}
+            <!--Poderia usar o include aqui também. Vou manter assim para compreender a viabilidade-->
+            <h3>{{ talk.start }} - {{ talk.title }}</h3>
+            <h4>Por
+                {% for speaker in talk.speakers.all %}
+                    <a href="{{ speaker.get_absolute_url }}">{{ speaker.name}}</a>
+                {% endfor %}
+            </h4>            
+            <p>{{ talk.description }}</p>
+        {% empty %}
+            <p>Ainda não existem palestras de tarde.</p>        
+        {% endfor %}  
+    </div>
+</section>
+{% endblock content %}

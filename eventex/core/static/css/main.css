@@ -378,5 +378,23 @@ This will clear the statics beforehand.
     width: 200px;
     border-radius: 100%;
 }
+
+.speakers img.photo{
+    float:left ;
+    padding-right: 15px;
+}
+
+/*Talks*/
+.talks h3{
+    min-height: 1em;
+    padding: 0;
+}
+
+.talks h4{
+    min-height: 1em;
+    font-size: 1em;
+    padding: 0;
+    margin: 0;
+}
 /* Fim Customização */
 
