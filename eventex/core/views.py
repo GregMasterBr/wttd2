@@ -35,9 +35,13 @@ def talk_list(request):
     #     'morning_talks': [Talk(title='Título da Palestra', start='10:00', description='Descrição da palestra.')],
     #     'afternoon_talks':[Talk(title='Título da Palestra', start='13:00', description='Descrição da palestra.')],
     # }
+    # context = {
+    #     'morning_talks': Talk.objects.filter(start__lt='12:00'),
+    #     'afternoon_talks': Talk.objects.filter(start__gte='12:00'),
+    # }    
     context = {
-        'morning_talks': Talk.objects.filter(start__lt='12:00'),
-        'afternoon_talks': Talk.objects.filter(start__gte='12:00'),
-    }    
+        'morning_talks': Talk.objects.at_morning(),
+        'afternoon_talks': Talk.objects.at_afternoon(),
+    }        
     #print(context)
     return render(request,'core/talk_list.html' , context) 
