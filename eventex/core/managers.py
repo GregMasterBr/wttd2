@@ -19,6 +19,7 @@ class KindQuerySet(models.QuerySet):
     def phones(self):
         return self.filter(kind = self.model.PHONE)
 
+#Desnessário por causa do queryset.asmanager
 class KindContactManager(models.Manager):
     def get_queryset(self):
         return KindQuerySet(self.model, using=self._db)
