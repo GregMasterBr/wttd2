@@ -1,5 +1,5 @@
 from django.db import models
-from eventex.core.managers import EmailContactManager, PhoneContactManager
+from eventex.core.managers import KindContactManager #,EmailContactManager, PhoneContactManager
 from eventex.subscriptions.validators import validate_cpf
 from django.shortcuts import resolve_url as r
 
@@ -43,10 +43,10 @@ class Contact(models.Model):
     kind = models.CharField('tipo', max_length=1, choices=KINDS)
     value = models.CharField('valor', max_length=255)
 
-    objects = models.Manager()
-    emails = EmailContactManager()
-    phones = PhoneContactManager()
-
+    #objects = models.Manager()
+    # emails = EmailContactManager()
+    # phones = PhoneContactManager()
+    objects = KindContactManager()
     class Meta:
         verbose_name_plural = 'contatos'
         verbose_name = 'contato'
