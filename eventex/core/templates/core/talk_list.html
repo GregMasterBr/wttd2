@@ -10,7 +10,7 @@
         {% empty %}
             <p>Ainda não existem palestras de manhã.</p>        
         {% endfor %}
-        
+
         <h2>Tarde</h2>
         {% for talk in afternoon_talks %}
             {% include 'core/talk_list_snippet.html' with talk=talk only %}
@@ -19,7 +19,7 @@
         {% endfor %}        
  
     </div>
-    <div>
+    <div class="talks content row padding-bottom-3 desktop-12 container">
     <!--Poderia usar o include aqui também. Vou manter assim para compreender a viabilidade-->
         <h1>Mini-Cursos</h1>
         {% for course in courses %}

@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render
-from eventex.core.models import Speaker, Talk
+from eventex.core.models import Course, Speaker, Talk
 
 def home(request):
     # speakers = [
@@ -39,14 +39,15 @@ def talk_list(request):
     #     'morning_talks': Talk.objects.filter(start__lt='12:00'),
     #     'afternoon_talks': Talk.objects.filter(start__gte='12:00'),
     # }    
-    speaker = Speaker(name='Henrique Bastos', slug='henrique-bastos')
+    
+    #speaker = Speaker(name='Henrique Bastos', slug='henrique-bastos')
     #simular um queryset
-    courses = [dict(title='Título do Curso', start='09:00', description='Descrição do curso.',speakers={'all':[speaker]})]
+    #courses = [dict(title='Título do Curso', start='09:00', description='Descrição do curso.',speakers={'all':[speaker]})]
 
     context = {
         'morning_talks': Talk.objects.at_morning(),
         'afternoon_talks': Talk.objects.at_afternoon(),
-        'courses': courses,
+        'courses': Course.objects.all(),
     }        
     #print(context)
     return render(request,'core/talk_list.html' , context) 

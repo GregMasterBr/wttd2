@@ -55,7 +55,7 @@ class Contact(models.Model):
     def __str__(self):
         return self.value  
 
-class Talk(models.Model):
+class Activity(models.Model):
     title = models.CharField('título', max_length=100)
     start = models.TimeField('início', blank=True, null=True)
     description = models.TextField('descrição', blank=True)
@@ -64,24 +64,20 @@ class Talk(models.Model):
     objects = PeriodManager()
 
     class Meta:
+        #abstract é a chave para mostrar para o django que isso se trata de uma classe abstrata. Esse abstract faz com que não tenha uma tabela associada no BD.
+        abstract = True 
         verbose_name_plural = 'palestras'
         verbose_name = 'palestra'
     
     def __str__(self):
         return self.title  
 
-class Course(models.Model):
-    title = models.CharField('título', max_length=100)
-    start = models.TimeField('início', blank=True, null=True)
-    description = models.TextField('descrição', blank=True)
-    slots = models.IntegerField('slots')
-    speakers = models.ManyToManyField("Speaker", verbose_name='instrutor', blank=True)    
+class Talk(Activity): #Modelo Concreto
+    pass
 
-    objects = PeriodManager()
-    
+class Course(Activity):
+    slots = models.IntegerField('slots')
+
     class Meta:
         verbose_name_plural = 'Cursos'
         verbose_name = 'Curso'
-
-    def __str__(self):
-        return self.title      
