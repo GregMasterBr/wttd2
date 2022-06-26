@@ -28,11 +28,13 @@ from eventex.core.models import Course, Speaker, Talk
 #     pass 
 
 #class HomeView(GenericHomeView):
-class HomeView(ListView):    
-    template_name = 'index.html'
-    # object_list = Speaker.objects.all()
-    # context_object_name = 'speakers'    
-    model = Speaker
+# class HomeView(ListView):    
+#     template_name = 'index.html'
+#     # object_list = Speaker.objects.all()
+#     # context_object_name = 'speakers'    
+#     model = Speaker
+
+home = ListView.as_view(template_name='index.html', model = Speaker)
 
 # def home(request):
 #     # speakers = [
