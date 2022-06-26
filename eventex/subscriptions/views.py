@@ -1,11 +1,11 @@
 from django.conf import settings
 from django.shortcuts import render, resolve_url as r
-from django.http import Http404, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from eventex.subscriptions.forms import SubscriptionForm
 from django.core import mail
 from django.template.loader import render_to_string
-from django.contrib import messages
 from eventex.subscriptions.models import Subscription
+from django.views.generic import DetailView
 
 def new(request):
    if request.method == 'POST':
@@ -41,20 +41,10 @@ def create(request):
          
    return HttpResponseRedirect(r('subscriptions:detail',subscription.pk))
 
-
-def detail(request,pk):
-   try:
-      subscription = Subscription.objects.get(pk=pk)
-   except Subscription.DoesNotExist:
-      raise Http404
-   # subscription = Subscription(
-   #    name='Gregorio Queiroz',
-   #    cpf='12345678901',
-   #    email='gregmasterbr@gmail.com',
-   #    phone='15-981057742'
-   # )
-   return render(request, 'subscriptions/subscription_detail.html', {'subscription': subscription})
+detail = DetailView.as_view(model=Subscription)
 
 def _send_email(subject, from_,to_,template_name,context):
    body = render_to_string(template_name,context)
    mail.send_mail(subject,body,from_,[from_, to_])
+
+
