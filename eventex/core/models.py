@@ -66,6 +66,7 @@ class Activity(models.Model):
     class Meta:
         #abstract é a chave para mostrar para o django que isso se trata de uma classe abstrata. Esse abstract faz com que não tenha uma tabela associada no BD.
         abstract = True 
+        ordering = ['start']
         verbose_name_plural = 'palestras'
         verbose_name = 'palestra'
     
@@ -75,7 +76,7 @@ class Activity(models.Model):
 class Talk(Activity): #Modelo Concreto
     pass
 
-class Course(Activity):
+class Course(Talk):
     slots = models.IntegerField('slots')
 
     class Meta:
