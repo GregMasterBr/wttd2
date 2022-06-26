@@ -1,56 +1,9 @@
 from msilib.schema import ListView
 from django.shortcuts import get_object_or_404, render
-from django.views.generic import View, TemplateView, ListView
-#from django.views.generic.base import TemplateResponseMixin
-from django.views.generic.list import MultipleObjectMixin
+from django.views.generic import ListView
 from eventex.core.models import Course, Speaker, Talk
 
-# A ordem da herança é da esquerda para a direita.
-# class GenericHomeView(MultipleObjectMixin, TemplateView):
-#     #template_name = None
-#     # object_list = None
-#     # context_object_name = None
-
-#     # def get(self, *args, **kwargs):
-#     #     #speakers = Speaker.objects.all()
-#     #     #return render(self.request, self.template_name,{'speakers':speakers})
-#     #     context = self.get_context_data()
-#     #     #return self.render_to_response({'speakers':speakers})
-#     #     return self.render_to_response(context)
-
-#     # def render_to_response(self, context):
-#     #    return render(self.request, self.template_name, context)
-
-#     # def get_context_data(self, **kwargs):
-#     #     context = {self.context_object_name: self.object_list}
-#     #     context.update(kwargs)
-#     #     return context 
-#     pass 
-
-#class HomeView(GenericHomeView):
-# class HomeView(ListView):    
-#     template_name = 'index.html'
-#     # object_list = Speaker.objects.all()
-#     # context_object_name = 'speakers'    
-#     model = Speaker
-
 home = ListView.as_view(template_name='index.html', model = Speaker)
-
-# def home(request):
-#     # speakers = [
-#     #     {
-#     #         'name':'Grace Hopper',
-#     #         'photo':'https://hbn.link/hopper-pic',
-#     #         'title':'Programadora e almirante'
-#     #     },
-#     #     {
-#     #         'name':'Alan Turing',
-#     #         'photo':'https://hbn.link/turing-pic',
-#     #         'title':'Físico'
-#     #     }        
-#     # ]
-#     speakers = Speaker.objects.all()
-#     return render(request,'index.html',{'speakers':speakers})
 
 def speaker_detail(request, slug):
     # speaker = Speaker(
