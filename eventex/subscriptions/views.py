@@ -18,24 +18,6 @@ class SubscriptionCreate(TemplateResponseMixin, View):
       self.object = None
       return self.render_to_response(self.get_context_data())
 
-   # def post(self, *args, **kwargs): # será o create
-      
-   #    form = SubscriptionForm(self.request.POST)
-
-   #    if not form.is_valid():
-   #       return render(self.request, self.template_name,{'form':form})
-      
-   #    subscription = form.save()
-
-   #    #Send subscription email
-   #    _send_email('Confirmação de inscrição',
-   #                settings.DEFAULT_FROM_EMAIL,
-   #                subscription.email,
-   #                'subscriptions/subscription_email.txt',
-   #                {'subscription': subscription})  
-            
-   #    return HttpResponseRedirect(r('subscriptions:detail',subscription.pk))   
-
    def post (self, *args, **kwargs): # será o create
       self.object = None      
       form = self.get_form()
@@ -72,7 +54,6 @@ class SubscriptionCreate(TemplateResponseMixin, View):
       context.setdefault('form', self.get_form())
       return context 
    
-
 new =  SubscriptionCreate.as_view()
 
 detail = DetailView.as_view(model=Subscription)
