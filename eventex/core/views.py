@@ -1,12 +1,25 @@
+from multiprocessing import context
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import View
 from eventex.core.models import Course, Speaker, Talk
 
 class HomeView(View):
-    def get(self, *args, **kwargs):
-        speakers = Speaker.objects.all()
-        return render(self.request,'index.html',{'speakers':speakers})
+    template_name = 'index.html'
 
+    def get(self, *args, **kwargs):
+        #speakers = Speaker.objects.all()
+        #return render(self.request, self.template_name,{'speakers':speakers})
+        context = self.get_context_data()
+        return self.render_to_response({'speakers':speakers})
+
+    def render_to_response(self, context):
+       return render(self.request, self.template_name, context)
+
+    def get_context_data(self, **kwargs):
+        speakers = Speaker.objects.all()
+        context = {'speakers':speakers}
+        context.update(kwargs)
+        return context 
 # def home(request):
 #     # speakers = [
 #     #     {
