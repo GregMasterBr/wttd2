@@ -8,24 +8,20 @@ from django.template.loader import render_to_string
 from eventex.subscriptions.models import Subscription
 from django.views.generic import DetailView
 from django.views.generic.base import TemplateResponseMixin
-from django.views.generic.edit import ModelFormMixin
+from django.views.generic.edit import ModelFormMixin, ProcessFormView
 
-class SubscriptionCreate(TemplateResponseMixin, ModelFormMixin, View):
+class SubscriptionCreate(TemplateResponseMixin, ModelFormMixin, ProcessFormView):
    template_name = 'subscriptions/subscription_form.html'
    form_class = SubscriptionForm
 
    def get(self, *args, **kwargs): # será o empty
       self.object = None
-      return self.render_to_response(self.get_context_data())
+      return super().get(*args, **kwargs)
 
    def post (self, *args, **kwargs): # será o create
-      self.object = None      
-      form = self.get_form()
-
-      if not form.is_valid():
-         return self.form_invalid(form)
-      return self.form_valid(form)
-
+      self.object = None  
+      return super().post(*args, **kwargs)
+    
    def form_valid(self, form):      
       self.object = form.save()
 
