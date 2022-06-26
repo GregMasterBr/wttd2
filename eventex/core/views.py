@@ -1,10 +1,11 @@
 from multiprocessing import context
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import View
+from django.views.generic.base import TemplateResponseMixin
 from eventex.core.models import Course, Speaker, Talk
 
-class GenericHomeView(View):
-    template_name = None
+class GenericHomeView(TemplateResponseMixin, View):
+    #template_name = None
     object_list = None
     context_object_name = None
 
@@ -15,8 +16,8 @@ class GenericHomeView(View):
         #return self.render_to_response({'speakers':speakers})
         return self.render_to_response(context)
 
-    def render_to_response(self, context):
-       return render(self.request, self.template_name, context)
+    # def render_to_response(self, context):
+    #    return render(self.request, self.template_name, context)
 
     def get_context_data(self, **kwargs):
         context = {self.context_object_name: self.object_list}
