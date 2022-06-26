@@ -5,7 +5,6 @@ from eventex.subscriptions.forms import SubscriptionForm
 from django.core import mail
 from django.template.loader import render_to_string
 from django.contrib import messages
-from django.conf import settings
 from eventex.subscriptions.models import Subscription
 
 def new(request):
