@@ -1,21 +1,27 @@
 from django.shortcuts import get_object_or_404, render
+from django.views.generic import View
 from eventex.core.models import Course, Speaker, Talk
 
-def home(request):
-    # speakers = [
-    #     {
-    #         'name':'Grace Hopper',
-    #         'photo':'https://hbn.link/hopper-pic',
-    #         'title':'Programadora e almirante'
-    #     },
-    #     {
-    #         'name':'Alan Turing',
-    #         'photo':'https://hbn.link/turing-pic',
-    #         'title':'Físico'
-    #     }        
-    # ]
-    speakers = Speaker.objects.all()
-    return render(request,'index.html',{'speakers':speakers})
+class HomeView(View):
+    def get(self, *args, **kwargs):
+        speakers = Speaker.objects.all()
+        return render(self.request,'index.html',{'speakers':speakers})
+
+# def home(request):
+#     # speakers = [
+#     #     {
+#     #         'name':'Grace Hopper',
+#     #         'photo':'https://hbn.link/hopper-pic',
+#     #         'title':'Programadora e almirante'
+#     #     },
+#     #     {
+#     #         'name':'Alan Turing',
+#     #         'photo':'https://hbn.link/turing-pic',
+#     #         'title':'Físico'
+#     #     }        
+#     # ]
+#     speakers = Speaker.objects.all()
+#     return render(request,'index.html',{'speakers':speakers})
 
 def speaker_detail(request, slug):
     # speaker = Speaker(
