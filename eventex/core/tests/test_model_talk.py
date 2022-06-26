@@ -92,4 +92,7 @@ class CourseModelTest(TestCase):
         self.assertEqual('Título do Curso', str(self.course))        
 
     def test_manager(self):
-        self.assertIsInstance(Course.objects, PeriodManager)                
+        self.assertIsInstance(Course.objects, PeriodManager)
+
+    def test_ordering(self):
+        self.assertListEqual(['start'], Course._meta.ordering)        
