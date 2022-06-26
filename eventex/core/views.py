@@ -43,3 +43,6 @@ def talk_list(request):
         'afternoon_talks': Talk.objects.at_afternoon(),
     }        
     return render(request,'core/talk_list.html' , context) 
+
+
+talk_list = ListView.as_view(model=Talk)
