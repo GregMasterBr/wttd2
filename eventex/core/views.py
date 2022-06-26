@@ -1,28 +1,30 @@
-from multiprocessing import context
 from django.shortcuts import get_object_or_404, render
-from django.views.generic import View
-from django.views.generic.base import TemplateResponseMixin
+from django.views.generic import View, TemplateView
+#from django.views.generic.base import TemplateResponseMixin
+from django.views.generic.list import MultipleObjectMixin
 from eventex.core.models import Course, Speaker, Talk
 
-class GenericHomeView(TemplateResponseMixin, View):
+# A ordem da herança é da esquerda para a direita.
+class GenericHomeView(MultipleObjectMixin, TemplateView):
     #template_name = None
-    object_list = None
-    context_object_name = None
+    # object_list = None
+    # context_object_name = None
 
-    def get(self, *args, **kwargs):
-        #speakers = Speaker.objects.all()
-        #return render(self.request, self.template_name,{'speakers':speakers})
-        context = self.get_context_data()
-        #return self.render_to_response({'speakers':speakers})
-        return self.render_to_response(context)
+    # def get(self, *args, **kwargs):
+    #     #speakers = Speaker.objects.all()
+    #     #return render(self.request, self.template_name,{'speakers':speakers})
+    #     context = self.get_context_data()
+    #     #return self.render_to_response({'speakers':speakers})
+    #     return self.render_to_response(context)
 
     # def render_to_response(self, context):
     #    return render(self.request, self.template_name, context)
 
-    def get_context_data(self, **kwargs):
-        context = {self.context_object_name: self.object_list}
-        context.update(kwargs)
-        return context 
+    # def get_context_data(self, **kwargs):
+    #     context = {self.context_object_name: self.object_list}
+    #     context.update(kwargs)
+    #     return context 
+    pass 
 
 class HomeView(GenericHomeView):
     template_name = 'index.html'
