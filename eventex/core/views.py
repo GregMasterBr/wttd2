@@ -3,10 +3,10 @@ from django.shortcuts import get_object_or_404, render
 from django.views.generic import View
 from eventex.core.models import Course, Speaker, Talk
 
-class HomeView(View):
-    template_name = 'index.html'
-    object_list = Speaker.objects.all()
-    context_object_name = 'speakers'
+class GenericHomeView(View):
+    template_name = None
+    object_list = None
+    context_object_name = None
 
     def get(self, *args, **kwargs):
         #speakers = Speaker.objects.all()
@@ -22,6 +22,12 @@ class HomeView(View):
         context = {self.context_object_name: self.object_list}
         context.update(kwargs)
         return context 
+
+class HomeView(GenericHomeView):
+    template_name = 'index.html'
+    object_list = Speaker.objects.all()
+    context_object_name = 'speakers'    
+
 # def home(request):
 #     # speakers = [
 #     #     {
