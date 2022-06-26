@@ -37,3 +37,6 @@ heroku config:set DEBUG=False
 git push heroku master --force
 
 ```
+
+Projeto hospedado no Heroku  
+<https://eventex-wttd-2-gregmaster.herokuapp.com/>
