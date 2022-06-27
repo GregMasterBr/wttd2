@@ -16,8 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from  eventex.core.views import speaker_detail, talk_list, home
-#import eventex.subscriptions.views
-#from eventex.subscriptions.views import subscribe, detail
 
 urlpatterns = [
     path('', home, name='home'),

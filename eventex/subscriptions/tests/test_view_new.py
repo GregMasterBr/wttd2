@@ -6,7 +6,6 @@ from django.shortcuts import redirect, resolve_url as r
 from django.core import mail
 from eventex.subscriptions.models import Subscription
 
-
 class SubscriptionsNewGet(TestCase):
     def setUp(self):
         self.response = self.client.get(r('subscriptions:new'))
@@ -34,12 +33,6 @@ class SubscriptionsNewGet(TestCase):
         for text, count in tags:
             with self.subTest():
                 self.assertContains(self.response, text,count)
-
-        # self.assertContains(self.response, '<form')
-        # self.assertContains(self.response, '<input', 6)
-        # self.assertContains(self.response, 'type="text"', 3)
-        # self.assertContains(self.response, 'type="email"',1)
-        # self.assertContains(self.response, 'type="submit"',1)
 
     def test_crsf(self):
         """Html must contain csrf_token"""
@@ -107,14 +100,4 @@ class TemplateRegressionTest(TestCase):
         response = self.client.post(r('subscriptions:new'),invalid_data)
 
         self.assertContains(response,'<ul class="errorlist nonfield">')
-
-
-# @unittest.skip('To be removed.')
-# class SubscribeSucessMessage(TestCase):
-#     def test_message(self):
-#         data = dict(name='Gregorio Queiroz', cpf='12345678901',
-#                     email='gregmasterbr@gmail.com', phone='15-98105-7742')
-#         response = self.client.post('/inscricao/', data, follow=True)
-#         self.assertContains(response, 'Inscrição realizada com sucesso!')
-
 

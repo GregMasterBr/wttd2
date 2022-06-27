@@ -5,7 +5,6 @@ from django.core import mail
 
 class SubscribeEmail(TestCase):
     def setUp(self):
-        #self.response = self.client.get(r('subscriptions:new'))
         data = dict(name='Gregorio Queiroz', cpf='12345678901',
                     email='gregmasterbr@gmail.com', phone='15-98105-7742')
         self.client.post(r('subscriptions:new'), data)
@@ -36,29 +35,3 @@ class SubscribeEmail(TestCase):
         for content in contents:
             with self.subTest():
                self.assertIn(content, self.email.body)
-
-'''
-class SubscribeEmailInvalid(TestCase):
-    def setUp(self):
-        self.resp = self.client.get('/inscricao/', {})
-
-    def test_template(self):
-        self.assertTemplateUsed(
-            self.resp, 'subscriptions/subscription_form.html')
-
-    def test_has_form(self):
-        form = self.resp.context['form']
-        self.assertIsInstance(form, SubscriptionForm)
-
-    def test_form_has_errors(self):
-        form = self.resp.context['form']
-        self.assertTrue(form.errors)
-
-
-class SubscribeSucessMessage(TestCase):
-    def test_message(self):
-        data = dict(name='Gregorio Queiroz', cpf='12345678901',
-                    email='gregmasterbr@gmail.com', phone='15-98105-7742')
-        response = self.client.post('/inscricao/', data, follow=True)
-        self.assertContains(response, 'Inscrição realizada com sucesso!')
-'''

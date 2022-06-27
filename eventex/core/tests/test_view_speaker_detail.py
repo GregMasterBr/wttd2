@@ -1,5 +1,3 @@
-from urllib import response
-from django.forms import SlugField
 from django.test import TestCase
 from django.shortcuts import resolve_url as r
 from eventex.core.models import Speaker

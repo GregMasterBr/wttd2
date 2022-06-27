@@ -1,14 +1,7 @@
 from django.db import models
-from eventex.core.managers import KindContactManager, KindQuerySet, PeriodManager #,EmailContactManager, PhoneContactManager
+from eventex.core.managers import  KindQuerySet, PeriodManager
 from eventex.subscriptions.validators import validate_cpf
 from django.shortcuts import resolve_url as r
-
-# class SpeakerOld(models.Model):
-#     name = 'Grace Hopper'
-#     website = 'https://hbn.link/hopper-site'
-#     photo = 'https://hbn.link/hopper-pic'
-#     title = 'Programadora e almirante'
-#     description ='Inventora do compilador, criadora da linguagem de programação Flow-Matic. A Linguagem serviu de base para a linguagem COBOL permitindo a popularização das aplicações comerciais.'
 
 class Speaker(models.Model):
     name = models.CharField('nome',max_length=255)
@@ -43,10 +36,6 @@ class Contact(models.Model):
     kind = models.CharField('tipo', max_length=1, choices=KINDS)
     value = models.CharField('valor', max_length=255)
 
-    #objects = models.Manager()
-    # emails = EmailContactManager()
-    # phones = PhoneContactManager()
-    #objects = KindContactManager()
     objects = KindQuerySet.as_manager()
     class Meta:
         verbose_name_plural = 'contatos'

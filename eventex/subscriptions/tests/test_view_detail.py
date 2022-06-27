@@ -1,8 +1,6 @@
 from django.test import TestCase
-from django.shortcuts import redirect, resolve_url as r
+from django.shortcuts import resolve_url as r
 from eventex.subscriptions.models import Subscription
-
-
 
 class SubscribeDetailGet(TestCase):
     def setUp(self):

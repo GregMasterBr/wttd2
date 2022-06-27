@@ -1,4 +1,3 @@
-import email
 from django.test import TestCase
 from eventex.subscriptions.admin import SubscriptionModelAdmin, Subscription, admin
 from unittest.mock import Mock

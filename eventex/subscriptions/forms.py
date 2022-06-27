@@ -4,7 +4,6 @@ from eventex.subscriptions.models import Subscription
 from eventex.subscriptions.validators import validate_cpf
 
 
-
 class SubscriptionFormOld(forms.Form):
     name = forms.CharField(label='Nome')
     cpf = forms.CharField(label='CPF', validators=[validate_cpf])
